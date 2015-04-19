@@ -1,0 +1,71 @@
+﻿<!--<h1>Home</h1>-->
+<div ng-show='currentUser'>
+  Hello {{currentUser.username}} {{currentUser.lastName}}
+</div>
+
+
+<!--<body ng-app="MyItemsApiAPP">-->
+  <!--<div class="container" ng-controller="MyItemsApiController">-->
+
+    <h3>Search for your favorite books!</h3>
+    
+    
+
+
+    <div ng-show="favorites.length > 0">
+      
+      <table class="table table-striped">
+        <thead>
+          <h2>Favorites</h2>
+          Save your favorites to your profile
+          <button ng-click="saveFavorites(favorites, currentUser)" class="btn btn-success pull-right" ng-show="currentUser">
+            <span class="glyphicon glyphicon-save"></span>
+          </button>
+        </thead>
+        <tbody>
+          <tr ng-repeat="book in favorites">
+            <td><img ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}">></td>
+            <td>{{book.volumeInfo.title}}</td>
+            <td>{{book.volumeInfo.author}}</td>
+            <td>
+              <button ng-click="removeFavorite(book)" class="btn-right btn-danger pull-right">
+                <span class="glyphicon glyphicon glyphicon-remove"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="input-group">
+      <input ng-model="titleSearch" type="text" class="form-control" placeholder="Search for..." required>
+      <span class="input-group-btn">
+        <button ng-click="searchTitle()" class="btn btn-default" type="button">Search!</button>
+      </span>
+    </div><!-- /input-group -->
+
+
+
+
+    <table class="table table-striped">
+      <tbody>
+        <tr ng-repeat="book in books">
+          <td><img ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}">></td>
+          <td>{{book.volumeInfo.title}}</td>
+          <td>{{book.volumeInfo.author}}</td>
+          <!--<td>{{book.author}}</td>-->
+          <td>
+            <button ng-click="addToFavorites(book)" class="btn-right btn-warning pull-right">
+              <span class="glyphicon glyphicon glyphicon-plus"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+<!--  </div>
+</body>-->
+
+
+

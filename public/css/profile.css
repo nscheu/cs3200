@@ -1,0 +1,35 @@
+﻿body {
+  padding-top: 50px;
+}
+
+.btn-right {
+  float: right;
+}
+.container {
+  float: left;
+}
+
+
+@media screen and (max-width: 768px) {
+  /* Small Devices: set container to 600px*/
+  .container {
+    width: 600px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  /* Tablet View: set container to 750px*/
+  .container {
+    width: 750px;
+  }
+
+  vertical-align: middle;
+}
+
+@media screen and (min-width: 970px) {
+  /* Desktop View: set container to 970px*/
+  .container {
+    width: 970px;
+  }
+  vertical-align: middle;
+  }
