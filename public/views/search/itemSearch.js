@@ -25,7 +25,7 @@ app.controller("MyItemsApiController", function ($scope, $http) {
   };
 
 
-  $scope.saveFavorites = function ($favorites, $user) {
+  $scope.saveFavorites = function ($favorites) {
     //$user.bookshelf = $favorites;
     //console.log($favorites);
     $http.post('/saveFavoritesToProfile', $favorites)
