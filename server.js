@@ -9,6 +9,8 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
 
+var connectionString = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/cs4550';
+var db = mongoose.connect(connectionString);
 
 //var WebsiteSchema = new mongoose.Schema({
 //  name: String,
