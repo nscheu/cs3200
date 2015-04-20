@@ -176,15 +176,15 @@ app.post('/register', function (req, res) {
 });
 
 app.post('/saveFavoritesToProfile', function (req, res) {
-  //console.log("SAVE FAVES-user");
-  //console.log(req.user.username);
-  //console.log("SAVE FAVES-faves");
-  //console.log(req.body);
+  console.log("SAVE FAVES-user");
+  console.log(req.user.username);
+  console.log("SAVE FAVES-faves");
+  console.log(req.body);
   console.log("SAVE FAVES3");
-  UserModel.findOne({ username: req.user }, function (err, user) {
+  UserModel.findOne({ username: req.user.username }, function (err, user) {
     if (user) {
-      var modUser = new UserModel(req.user);
-      modUser.update({ username: req.user.username }, { bookshelf: req.body });
+      var modUser = new UserModel(user);
+      modUser.update({ username: user.username }, { bookshelf: req.body });
       //modUser.save(function (err, docs) {
       //  console.log(docs);
       //});
@@ -202,9 +202,9 @@ app.post('/logout', function (req, res) {
   res.send(200);
 });
 
-app.get('/process', function (req, res) {
-  res.json(process.env);
-});
+//app.get('/process', function (req, res) {
+//  res.json(process.env);
+//});
 
 var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 8000;
