@@ -33,14 +33,7 @@ app.controller("MyItemsApiController", function ($scope, $http) {
           //console.log($favorites);
           //console.log($user);
         });
-    }
+   };
 
 
 });
-
-
-app.controller('saveFavoritesToProfile', function ($scope, $http) {
-
- 
-
-  });
