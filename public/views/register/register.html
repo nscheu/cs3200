@@ -1,7 +1,11 @@
 ﻿<h1>Register</h1>
 
-
-<input ng-model='user.username' /><br />
-<input ng-model='user.password' /><br />
-<input ng-model='user.password2' /><br />
+<div class="form-group">
+	<label for="un">Username</label>
+<input id="un" ng-model='user.username' /><br />
+<label for="pw1">Enter Password</label>
+<input id="pw1" ng-model='user.password' /><br />
+<label for="pw2">Re-Enter Password</label>
+<input id="pw2" ng-model='user.password2' /><br />
 <button ng-click='register(user)'>Login</button>
+</div>
