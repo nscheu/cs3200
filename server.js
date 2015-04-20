@@ -183,9 +183,9 @@ app.post('/saveFavoritesToProfile', function (req, res) {
   console.log("SAVE FAVES3");
   UserModel.findOne({ username: req.user.username }, function (err, user) {
     if (user) {
-      var modUser = new UserModel(user);
-      console.log(user);
-      modUser.update({ username: user.username }, { bookshelf: req.body });
+      var modUser = new UserModel(req.user);
+      console.log("user == TRUE");
+      modUser.update({ username: req.user.username }, { bookshelf: req.body });
       //modUser.save(function (err, docs) {
       //  console.log(docs);
       //});
