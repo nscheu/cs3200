@@ -146,6 +146,13 @@ app.get('/rest/user', auth, function (req, res) {
   });
 });
 
+app.get('/rest/favorites', auth, function (req, res) {
+  console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA REST/FAVORITES !!!!!!!!!!!!!!!!!!!!!!!!!')
+  //console.log(req);
+  console.log(req.user.bookshelf);
+  res.json(req.user.bookshelf);
+});
+
 
 
 app.post('/login', passport.authenticate('local'), function (req, res) {
@@ -175,36 +182,25 @@ app.post('/register', function (req, res) {
   console.log(newUser);
 });
 
+
+//TODO: CLEAN THIS FUNCTION
 app.post('/saveFavoritesToProfile', function (req, res) {
-  console.log("SAVE FAVES-user");
-  console.log(req.user.username);
-  console.log("SAVE FAVES-faves");
-  //console.log(req.body);
-  console.log("SAVE FAVES3");
   UserModel.findOne({ username: req.user.username }, function (err, user) {
     if (user) {
-    	user.bookshelf = req.body;
-    	console.log(user);
-      //var modUser = new UserModel(req.user);
-      console.log("user == TRUE");
-      console.log(user);
-      //console.log("modUser = ");
-      //console.log(modUser);
-      //console.log("req.user = ");
-      //console.log(req.user);
-      UserModel.update({username:user.username}, {$set:{bookshelf: user.bookshelf}});
-      //modUser.save(function (err, docs) {
-      //  console.log(docs);
-      //});
-      //modUser.save(function (err, user) {
-      //  console.log(err);        
-      //});
+      user.bookshelf = req.body;
+      /////////////////////////
+  UserModel.findOneAndUpdate({ username: user.username }, { $addToSet: { bookshelf: user.bookshelf } }, function (err, user) {
+        if (err) throw err;
+
+        // we have the updated user returned to us
+        console.log(user);
+  });
+      /////////////////////////
     }
     else {
       res.send(401);
     }
   });
-  //console.log(req);
 });
 
 

@@ -31,10 +31,10 @@
 
 <table class="table table-striped">
   <tbody>
-    <tr ng-repeat="book in books">
+    <tr ng-repeat="book in favorites">
       <td><img ng-src="{{movie.volumeInfo.imageLinks.smallThumbnail}}">></td>
-      <td>{{book.bookshelf.title}}</td>
-      <td>{{book.bookshelf.author}}</td>
+      <td>{{book.volumeInfo.title}}</td>
+      <td>{{book.volumeInfo.author}}</td>
       <td>
         <button ng-click="removeFavorite(movie)" class="btn-right btn-danger pull-right">
           <span class="glyphicon glyphicon glyphicon-remove"></span>
