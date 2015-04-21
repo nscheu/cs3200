@@ -30,7 +30,7 @@ app.controller("MyItemsApiController", function ($scope, $http) {
     //console.log($favorites);
     $http.post('/saveFavoritesToProfile', $favorites)
         .success(function ($favorites) {
-          //console.log($favorites);
+          console.log($favorites);
           //console.log($user);
         });
    };

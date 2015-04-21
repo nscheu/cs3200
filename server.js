@@ -179,15 +179,25 @@ app.post('/saveFavoritesToProfile', function (req, res) {
   console.log("SAVE FAVES-user");
   console.log(req.user.username);
   console.log("SAVE FAVES-faves");
-  console.log(req.body);
+  //console.log(req.body);
   console.log("SAVE FAVES3");
   UserModel.findOne({ username: req.user.username }, function (err, user) {
     if (user) {
-      var modUser = new UserModel(req.user);
+    	user.bookshelf = req.body;
+    	console.log(user);
+      //var modUser = new UserModel(req.user);
       console.log("user == TRUE");
-      modUser.update({ username: req.user.username }, { bookshelf: req.body });
+      console.log(user);
+      //console.log("modUser = ");
+      //console.log(modUser);
+      //console.log("req.user = ");
+      //console.log(req.user);
+      UserModel.update({username:user.username}, {$set:{bookshelf: user.bookshelf}});
       //modUser.save(function (err, docs) {
       //  console.log(docs);
+      //});
+      //modUser.save(function (err, user) {
+      //  console.log(err);        
       //});
     }
     else {
