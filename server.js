@@ -148,9 +148,21 @@ app.get('/rest/user', auth, function (req, res) {
 
 app.get('/rest/favorites', auth, function (req, res) {
   console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA REST/FAVORITES !!!!!!!!!!!!!!!!!!!!!!!!!')
-  //console.log(req);
   console.log(req.user.bookshelf);
-  res.json(req.user.bookshelf);
+  console.log(req.user.username);
+  //res.json(req.user.bookshelf);
+  UserModel.findOne({ username: req.user.username }, function (err, user) {
+    console.log(user.username);
+    if (user) {
+      console.log(user.bookshelf);
+      res.json(user.bookshelf);
+  //    //return user.bookshelf;
+    }
+    console.log("Unable to Get Favorites");
+  //  //return done(null, false, { message: 'Unable to Get Favorites' });
+  });
+  //console.log(req.user.bookshelf);
+  
 });
 
 
@@ -189,12 +201,19 @@ app.post('/saveFavoritesToProfile', function (req, res) {
     if (user) {
       user.bookshelf = req.body;
       /////////////////////////
-  UserModel.findOneAndUpdate({ username: user.username }, { $addToSet: { bookshelf: user.bookshelf } }, function (err, user) {
+
+      user.bookshelf.forEach(function (entry) {
+        console.log("BOOK ############################")
+        console.log(entry);
+      
+
+  UserModel.findOneAndUpdate({ username: user.username }, { $addToSet: { bookshelf: entry } }, function (err, user) {
         if (err) throw err;
 
         // we have the updated user returned to us
         console.log(user);
   });
+      });
       /////////////////////////
     }
     else {

@@ -7,6 +7,7 @@
   $http.get("rest/favorites")
   .success(function (favorites) {
     console.log("rest/favorites");
+    console.log(favorites);
     $scope.favorites = favorites;
   });
 
