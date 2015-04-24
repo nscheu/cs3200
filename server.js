@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var app = express();
 var mongoose = require('mongoose');
-//var db = mongoose.connect('mongodb://localhost/cs4550');
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -12,75 +11,27 @@ var LocalStrategy = require('passport-local').Strategy;
 var connectionString = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/cs4550';
 var db = mongoose.connect(connectionString);
 
-//var WebsiteSchema = new mongoose.Schema({
-//  name: String,
-//  url: String,
-//  created: { type: Date, "default": Date.now() }
-//});
-
 var UserSchema = new mongoose.Schema({
   username: String,
   password: String,
   roles: [String],
-  bookshelf: { type: Array, "default": new Array() }
+  bookshelf: {
+    type: Array, "default": new Array()
+  },
+  pubData: {
+    firstName: String,
+    lastName: String
+  },
+  pubComments: [
+    { srcUserName: String },
+    { bodyPublic: String },
+    { created: { type: Date, default: Date.now} }
+  ]
 });
 
-
-//var Website = mongoose.model('Website', WebsiteSchema);
 var UserModel = mongoose.model('UserModel', UserSchema);
 
-
-//var admin = new UserModel({ username: 'alice', password: 'alice', roles: ["admin"] });
-//var student = new UserModel({ username: 'bob', password: 'bob', bookshelf: ["student"] });
-
-//admin.save();
-//student.save();
-
-//UserModel.remove({ _id: "5532f2321c87e71853543a7a" }, function (data) {
-//});
-
-//var website1 = new Website({
-//  name: "Website 1",
-//  url: "www.website1.com"
-//});
-
-//var website2 = new Website({
-//  name: "Website 2",
-//  url: "www.website2.com"
-//});
-
-//website1.save();
-
-//Website.find(function (err, docs) {
-//  console.log(docs);
-//});
-
-
-//Website.find({name: 'Website 1'}, function (err, docs) {
-//    console.log(docs);
-//});
-
-//Website.findById("55326aeaab06fe5c4a25c81e", function(err, doc) {
-//      console.log(doc);
-//});
-
-
-//Website.remove({ _id: "55326aeaab06fe5c4a25c81e" }, function (data) {
-//});
-
-
-//Website.find(function (err, docs) {
-//  console.log(docs);
-//});
-
-//Website.findById("55326b7aafae43c447235303", function (err, doc) {
-//  console.log("FindbyID");
-//  console.log(doc);
-//  doc.name = "Website 222";
-//  doc.save();
-//});
-
-
+//var favorites = new Array();
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -92,20 +43,8 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + '/public'));// GET /style.css etc
 
-//var users = [
-//  { username: 'alice', password: 'a', firstName: 'Alice', lastName: 'Wonderland', roles: ['admin', 'student', 'instructor'] },
-//  { username: 'bob', password: 'a', firstName: 'Bob', lastName: 'Marley', roles: ['student']}
-//];
-
 passport.use(new LocalStrategy(
   function (username, password, done) {
-    //for (var u in users) {
-    //  if (username == users[u].username && password == users[u].password) {
-    //    return done(null, users[u]);
-    //  }
-    //}
-    //return done(null, false, { message: 'Unable to login' });
-
     //CALL TO DATABASE AND VERIFY THAT USERNAME/PASSWORD MATCH A VALUE
     UserModel.findOne({username: username, password: password}, function (err, user) {
       //console.log(docs);
@@ -146,26 +85,69 @@ app.get('/rest/user', auth, function (req, res) {
   });
 });
 
+app.post('/rest/delUser', auth, function (req, res) {
+  console.log("server - delUser REST");
+  console.log(req.body);
+  UserModel.remove({ _id: req.body._id }, function (err, users) {
+    res.json(users);
+  });
+});
+
+//right now only replaces pubData in Mongo - will need to edit for entire schema/etc
+app.post("/api/updateUser", auth, function (req, res) {
+  console.log("server - updateUser REST");
+  console.log(req.body);
+  UserModel.findOneAndUpdate({ _id: req.body._id }, { pubData: req.body.pubData }, function (err, user) {
+    if (err) throw err;
+    // we have the updated user returned to us
+    console.log(user);
+    //res.json(user);
+  });
+});
+
+app.get('/rest/pubFavorites', function (req, res) {
+  console.log(req.query._id)
+  UserModel.findOne({ _id: req.query._id }, function (err, user) {
+    //console.log(user.username);
+    if (user) {
+      //console.log(user.bookshelf);
+      res.json(user.bookshelf);
+    }
+    console.log("Unable to Get Favorites");
+  });
+});
+
 app.get('/rest/favorites', auth, function (req, res) {
-  console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA REST/FAVORITES !!!!!!!!!!!!!!!!!!!!!!!!!')
-  console.log(req.user.bookshelf);
-  console.log(req.user.username);
-  //res.json(req.user.bookshelf);
+  UserModel.findOne({ username: req.user.username }, function (err, user) {
+    //console.log(user.username);
+    if (user) {
+      //console.log(user.bookshelf);
+      res.json(user.bookshelf);
+    }
+    console.log("Unable to Get Favorites");
+  });  
+});
+
+app.get('/rest/addComment', auth, function (req, res) {
+  console.log("rest/addComment/ req::");
+  console.log(req.query);
+  console.log(req.params);
+  console.log("rest/addComment/ req.user::");
+  console.log(req.user);
+  console.log("rest/addComment/ req.body::");
+  console.log(req.body);
+});
+
+app.get('/rest/pubComments', auth, function (req, res) {
   UserModel.findOne({ username: req.user.username }, function (err, user) {
     console.log(user.username);
     if (user) {
-      console.log(user.bookshelf);
-      res.json(user.bookshelf);
-  //    //return user.bookshelf;
+      console.log(user.pubComments);
+      res.json(user.pubComments);
     }
-    console.log("Unable to Get Favorites");
-  //  //return done(null, false, { message: 'Unable to Get Favorites' });
+    console.log("Unable to Get pubComments");
   });
-  //console.log(req.user.bookshelf);
-  
 });
-
-
 
 app.post('/login', passport.authenticate('local'), function (req, res) {
   console.log(req.user);
@@ -179,7 +161,7 @@ app.post('/register', function (req, res) {
     }
     else {
       var newUser = new UserModel(req.body);
-      newUser.roles = ['student'];
+      newUser.roles = ['admin', 'user'];
 
       newUser.save(function (err, user) {
         req.login(user, function (err) {
@@ -187,7 +169,6 @@ app.post('/register', function (req, res) {
           res.json(user);
         });        
       });
-
     }
   });
   var newUser = req.body;
@@ -200,21 +181,16 @@ app.post('/saveFavoritesToProfile', function (req, res) {
   UserModel.findOne({ username: req.user.username }, function (err, user) {
     if (user) {
       user.bookshelf = req.body;
-      /////////////////////////
-
+      
       user.bookshelf.forEach(function (entry) {
         console.log("BOOK ############################")
         console.log(entry);
-      
-
-  UserModel.findOneAndUpdate({ username: user.username }, { $addToSet: { bookshelf: entry } }, function (err, user) {
+        UserModel.findOneAndUpdate({ username: user.username }, { $addToSet: { bookshelf: entry } }, function (err, user) {
         if (err) throw err;
-
         // we have the updated user returned to us
         console.log(user);
-  });
+        });
       });
-      /////////////////////////
     }
     else {
       res.send(401);
@@ -222,15 +198,10 @@ app.post('/saveFavoritesToProfile', function (req, res) {
   });
 });
 
-
 app.post('/logout', function (req, res) {
   req.logOut();
   res.send(200);
 });
-
-//app.get('/process', function (req, res) {
-//  res.json(process.env);
-//});
 
 var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 8000;

@@ -17,9 +17,20 @@ app.config(function($routeProvider, $httpProvider) {
         loggedin: checkLoggedIn
       }
     })
+    .when('/pubProfile', {
+      templateUrl: '/views/pubProfile/pubProfile.html',
+      controller: 'pubProfileCtrl',
+      resolve: {
+        loggedin: checkLoggedIn
+      }
+    })
     .when('/register', {
       templateUrl: '/views/register/register.html',
       controller: 'RegisterCtrl'
+    })
+    .when('/users', {
+      templateUrl: '/views/users/users.html',
+      controller: 'UsersCtrl'
     })
     .otherwise({
       redirectTo: '/'
@@ -80,16 +91,6 @@ app.controller('NavCtrl', function ($rootScope, $scope, $http, $location) {
 app.controller('HomeCtrl', function($scope) {
 
 });
-
-
-//app.controller('ProfileCtrl', function($scope, $http, $location, SecurityService) {
-//  $scope.logout = function() {
-//    SecurityService.logout(function (response) {
-//      console.log(response);
-//      $location.url('/');
-//    });
-//  }
-//});
 
 
 

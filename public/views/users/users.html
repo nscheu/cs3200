@@ -1,0 +1,14 @@
+﻿
+<div class="col-xs-6 col-md-6 col-lg-6">
+  <table class="table table-responsive table-striped table-bordered">
+    <thead><b>Users</b></thead>
+    <tbody>
+      <tr ng-repeat="user in users" ng-if="user.username != currentUser.username">
+        <td>
+          {{user.pubData.firstName}} {{user.pubData.lastName}}'s public profile
+          <button class="btn btn-primary pull-right" ng-click="viewUser(user)">Visit Profile</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>

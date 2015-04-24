@@ -3,11 +3,14 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/angular.js"></script>
 <script src="js/angular-route.js"></script>
+
 <script src="js/app.js"></script>
 <script src="views/login/login.js"></script>
 <script src="views/register/register.js"></script>
 <script src="views/profile/profile.js"></script>
+<script src="views/pubProfile/pubProfile.js"></script>
 <script src="views/search/itemSearch.js"></script>
+<script src="views/users/users.js"></script>
 <link href="css/profile.css" rel="stylesheet"/>
 
 <body ng-app="PassportApp">
@@ -16,7 +19,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#/home">BookBag</a>
+          <a class="navbar-brand" href="#/home">BookShelf</a>
 
           <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
             <span class="icon-bar"></span>
@@ -35,6 +38,7 @@
                 <li><a href="#/register" ng-show='!currentUser'>Register</a></li>
                 <li><a ng-click="logout()" ng-show="currentUser">Logout</a></li>
                 <li><a href="#/profile" ng-show="currentUser">Profile</a></li>
+                <li><a href="#/users" ng-show="currentUser">Users</a></li>
               </ul>
             </div>
           </div>
