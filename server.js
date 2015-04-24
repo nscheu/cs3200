@@ -23,9 +23,7 @@ var UserSchema = new mongoose.Schema({
     lastName: String
   },
   pubComments: [
-    { srcUserName: String },
-    { bodyPublic: String },
-    { created: { type: Date, default: Date.now} }
+    { srcUserName: String , bodyPublic: String, created: { type: Date, default: Date.now} }
   ]
 });
 
@@ -128,14 +126,25 @@ app.get('/rest/favorites', auth, function (req, res) {
   });  
 });
 
-app.get('/rest/addComment', auth, function (req, res) {
+app.post('/rest/addComment', auth, function (req, res) {
   console.log("rest/addComment/ req::");
-  console.log(req.query);
-  console.log(req.params);
-  console.log("rest/addComment/ req.user::");
-  console.log(req.user);
-  console.log("rest/addComment/ req.body::");
-  console.log(req.body);
+  
+  //console.log(req.body.params._id);
+  destUIDloc = req.body.params._id;
+  //console.log(destUIDloc);
+  bodyPublicloc = req.body.params.bodyPublic;
+  //console.log(bodyPublicloc);
+  srcUserNameloc = req.user.username;
+  //console.log(srcUserNameloc);
+  entry = { srcUserName: srcUserNameloc, bodyPublic: bodyPublicloc };
+  console.log("ENTRY:::");
+  console.log(entry);
+
+  UserModel.findOneAndUpdate({ _id: destUIDloc }, { $addToSet: { pubComments: entry } }, function (err, user) {
+    if (err) throw err;
+    // we have the updated user returned to us
+    console.log(user);
+  });
 });
 
 app.get('/rest/pubComments', auth, function (req, res) {
