@@ -1,11 +1,12 @@
 ﻿app.controller('pubProfileCtrl', function ($scope, $http, $location, $rootScope) {
   $scope.viewUser = $rootScope.viewUser;
+  $scope.pubComments = $scope.viewUser.pubComments;
 
   console.log("Public Profile Controller");
-  console.log($scope.viewUser);
+  console.log($scope.viewUser.pubComments);
 
   $http.get("rest/pubFavorites", {
-    params: { _id: $rootScope.viewUser._id }})
+    params: { _id: $scope.viewUser._id }})
     .success(function (favorites) {
       $scope.favorites = favorites;
     });
@@ -22,5 +23,18 @@
         console.log(response);
       });
   };
+
+  $scope.formatDate = function (dateCreated) {
+    //console.log("formatDate");
+    date = new Date(dateCreated);
+    return date.toDateString();
+  };
+
+  $scope.formatTime = function (dateCreated) {
+    //console.log("formatTime");
+    date = new Date(dateCreated);
+    return date.toLocaleTimeString();
+  };
+ 
 
 });

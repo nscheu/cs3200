@@ -2,11 +2,45 @@
   padding-top: 50px;
 }
 
+th {
+  font-weight: bold;
+}
+
+#dateDisplay{
+  width: 115px;
+}
+
+#tableTitle {
+  font-weight: bold;
+}
+
+#welcomeMessage {
+  font-weight: bold;
+}
+
+.btn {
+  /*width: 7em;*/
+  text-shadow: gray 5px 3px 3px;
+}
+
 .btn-right {
   float: right;
 }
 .container {
   float: left;
+}
+
+form {
+  /*border: 2px black solid;
+border-radius: 15px;
+-moz-border-radius: 15px;
+-webkit-border-radius: 15px;
+-khtml-border-radius:15px;
+
+box-shadow:inset 1px 1px 2px #999;
+-webkit-box-shadow:inset 1px 1px 2px #999;
+-moz-box-shadow:inset 1px 1px 2px #999;
+-khtml-box-shadow:inset 1px 1px 2px #999;*/
 }
 
 
@@ -29,7 +63,7 @@
 @media screen and (min-width: 970px) {
   /* Desktop View: set container to 970px*/
   .container {
-    width: 970px;
+    width: 90%;
   }
   vertical-align: middle;
   }

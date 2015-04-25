@@ -1,7 +1,7 @@
 ﻿<h1>My Profile</h1>
+<hr />
 
-
-<div class="container">
+<div class="container container-fluid">
   
 
 
@@ -13,92 +13,97 @@
 
 
   <div class="row">
-    <div class="col-xs-3 col-md-3 col-lg-3">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+      <div id="tableTitle">User Data</div>
       <table class="table table-responsive table-striped table-bordered">
-        <thead><b>User Data</b></thead>
         <tr>
-          <td>Username</td>
+          <th>Username</th>
+          <th>User Role</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Number of Favorites</th>
+          <th>Number of Comments</th>
+          <th>Actions</th>
+        </tr>
+        <tr>
           <td>{{currentUser.username}}</td>
-        </tr>
-        <tr>
-          <td>User Role</td>
           <td>
-            {{currentUser.roles}} 
-            <br />Admin = {{currentUser.roles.indexOf('admin')}}
-            <br />Student = {{currentuser.roles.indexOf('student')}}            
+            {{currentUser.roles}}           
           </td>
-        </tr>
-        <tr>
-          <td>First Name</td>
           <td>{{currentUser.pubData.firstName}}</td>
-        </tr>
-        <tr>
-          <td>Last Name</td>
           <td>{{currentUser.pubData.lastName}}</td>
-        </tr>
-        <tr>
-          <td>Bookshelf</td>
           <td>Size: {{currentUser.bookshelf.length}}</td>
-        </tr>
-        <tr>
-          <td>Comment Feed</td>
           <td>Size: {{currentUser.pubComments.length}}</td>
-        </tr>
-        <tr>
-          <td></td>
+          
           <td><button class="btn btn-warning pull-right" ng-click="openUpdateUserModal(currentUser)">Update</button></td>
         </tr>
       </table>
     </div>    
-  
-    <div class="col-xs-3 col-md-3 col-lg-3">
-      <table class="table table-responsive table-striped table-bordered">
-        <thead><b>Favorites</b></thead>
-        <tbody>
+  </div>
+  <div class="row">
 
-          <tr ng-repeat="book in favorites">
-            <td>
-              <img ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}" alt="Generic placeholder thumbnail" height=50>
-            </td>
-            <td>
-              {{book.volumeInfo.title}}
-            </td>
-            <td>
-              <button ng-click="removeFavorite(book)" class="btn-danger pull-right">
-                <span class="glyphicon glyphicon-remove"></span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
 
-    <div class="col-xs-3 col-md-3 col-lg-3">
+    <div class="col-xs-6 col-md-6 col-lg-6">
+      <div id="tableTitle">Comment Feed</div>
       <table class="table table-responsive table-striped table-bordered">
-        <thead><b>Comment Feed</b></thead>
         <tr ng-repeat="comment in pubComments">
-          <td>User (other):<br />{{comment.srcUserName}}</td>
+          <td>From:<br />{{comment.srcUserName}}</td>
           <td>Comment:<br />{{comment.bodyPublic}}</td>
         </tr>
       </table>
     </div>
 
-    <div class="col-xs-3 col-md-3 col-lg-3">
-      <div ng-show="{{currentuser.roles.indexof('admin')}} '> -1'">
-        <table class="table table-responsive table-striped">
-          <thead><b>Admin</b></thead>
-          <tr ng-repeat="user in users" ng-if="user.username != currentUser.username">
-            <td>
-              {{user.username}}
-              <button class="btn btn-danger pull-right" ng-click="delUser(user)">Delete</button>
-              <button class="btn btn-warning pull-right" ng-click="openUpdateUserModal(user)">Update</button>
-            </td>
-          </tr>
-        </table>
-      </div>
+    <div class="col-xs-6 col-md-6 col-lg-6">
+      <div id="tableTitle">Favorites</div>
+      <table class="table table-responsive table-striped table-bordered">
+        <tr ng-repeat="book in favorites">
+          <td>
+            <img ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}" alt="Generic placeholder thumbnail" height=50>
+          </td>
+          <td>
+            {{book.volumeInfo.title}}
+          </td>
+          <td>
+            <button ng-click="removeFavorite(book)" class="btn btn-danger pull-right">
+              <span class="glyphicon glyphicon-remove"></span> Delete
+            </button>
+          </td>
+        </tr>
+      </table>
     </div>
-
   </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-lg-12">
+        <div ng-show="{{currentuser.roles.indexof('admin')}} '> -1'">
+          Admin
+          <table class="table table-responsive table-striped table-bordered">
+            <tr>
+              <td>Username</td>
+              <td>Role</td>
+              <td>First Name</td>
+              <td>Last Name</td>
+              <td>Number of Saved Books</td>
+              <td>Number of Comments</td>
+              <td>Actions</td>
+            </tr>
+            <tr ng-repeat="user in users" ng-if="user.username != currentUser.username">
+              <td>{{user.username}}</td>
+              <td>{{user.roles}}</td>
+              <td>{{user.pubData.firstName}}</td>
+              <td>{{user.pubData.lastName}}</td>
+              <td>{{user.bookshelf.length}}</td>
+              <td>{{user.pubComments.length}}</td>
+              <td>
+                <button class="btn btn-danger pull-right" ng-click="delUser(user)">Delete</button>
+                <button class="btn btn-warning pull-right" ng-click="openUpdateUserModal(user)">Update</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
 
 
 <!--Update Modal Below-->
