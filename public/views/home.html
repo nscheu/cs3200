@@ -1,33 +1,34 @@
-﻿
-<!--<h1>Home</h1>-->
-<div ng-show='currentUser'>
-  <br /><div id="welcomeMessage">Hello {{currentUser.pubData.firstName}} {{currentUser.pubData.lastName}}</div>
-</div>
+﻿<br />
+
+  <!--<h1>Home</h1>-->
+  <div class="thumbnail">
+    <div ng-show='currentUser'>
+      <br /><div id="welcomeMessage">Hello {{currentUser.pubData.firstName}} {{currentUser.pubData.lastName}}</div>
+    </div>
 
 
-<!--<body ng-app="MyItemsApiAPP">-->
-  <!--<div class="container" ng-controller="MyItemsApiController">-->
+    <!--<body ng-app="MyItemsApiAPP">-->
+    <!--<div class="container" ng-controller="MyItemsApiController">-->
 
-    <h3></h3>
-    
-    
+
+
+
 
 
     <div ng-show="favorites.length > 0">
-      
-      <table class="table table-striped">
+
+      <table class="table">
+        <tr><td colspan="4" id="tableTitle">Favorites</td></tr>
         <tr>
-          <th colspan="2">
-            Favorites
-          </th>
-          <th colspan="2">
-            <button ng-click="saveFavorites(favorites)" class="btn btn-success pull-right" ng-show="currentUser">
-              <span class="glyphicon glyphicon-floppy-disk"></span> Save to profile</button>
+          <th colspan="4">
+            <button ng-click="saveFavorites(favorites)" class="btn btn-success center-block" ng-show="currentUser">
+              <span class="glyphicon glyphicon-floppy-disk"></span> Save to profile
+            </button>
           </th>
         </tr>
         <tbody>
           <tr ng-repeat="book in favorites">
-            <td><img ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}">></td>
+            <td><img ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}" class="searchImg"></td>
             <td>{{book.volumeInfo.title}}</td>
             <td>{{book.volumeInfo.author}}</td>
             <td>
@@ -40,36 +41,36 @@
       </table>
     </div>
 
-<!--<div class="col-xs-8 col-sm-7 col-md-6 col-lg-6">-->
-  <h3>Search for books!</h3>
-  <div class="input-group">
-    <input ng-model="titleSearch" id="search" type="text" class="form-control" placeholder="Search for..." required>
-    <span class="input-group-btn">
-      <button ng-click="searchTitle()" class="btn btn-primary" type="button">Search!</button>
-    </span>
+    <!--<div class="col-xs-8 col-sm-7 col-md-6 col-lg-6">-->
+    <h3>Search for books!</h3>
+    <div class="input-group">
+      <input ng-model="titleSearch" id="search" type="text" class="form-control" placeholder="Search for..." required>
+      <span class="input-group-btn">
+        <button ng-click="searchTitle()" class="btn btn-primary" type="button">Search!</button>
+      </span>
+    </div>
+
+
+
+
+    <table class="table">
+      <tbody>
+        <tr ng-repeat="book in books">
+          <td><img ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}" class="searchImg"></td>
+          <td>{{book.volumeInfo.title}}</td>
+          <td>{{book.volumeInfo.author}}</td>
+          <!--<td>{{book.author}}</td>-->
+          <td>
+            <button ng-click="addToFavorites(book)" class="btn btn-warning pull-right">
+              <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-
-
-
-
-  <table class="table table-striped">
-    <tbody>
-      <tr ng-repeat="book in books">
-        <td><img ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}">></td>
-        <td>{{book.volumeInfo.title}}</td>
-        <td>{{book.volumeInfo.author}}</td>
-        <!--<td>{{book.author}}</td>-->
-        <td>
-          <button ng-click="addToFavorites(book)" class="btn btn-warning pull-right">
-            <span class="glyphicon glyphicon-plus"></span> Add
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
   <!--  </div>
   </body>-->
-
+ 
 
 

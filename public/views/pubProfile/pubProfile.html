@@ -1,73 +1,74 @@
-﻿
-<div class="row">
-  <div id="tableTitle">View User Data</div>
-  <div class="col-xs-12 col-md-12 col-lg-12">
-
-    <table class="table table-responsive table-striped table-bordered">
-      <tr>
-        <th>Username</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Bookshelf</th>
-        <th>Comment Feed</th>
-        <th>
-
-        </th>
-      </tr>
-      <tr>
-        <td>{{viewUser.username}}</td>
-        <td>{{viewUser.pubData.firstName}}</td>
-        <td>{{viewUser.pubData.lastName}}</td>
-        <td>Size: {{viewUser.bookshelf.length}}</td>
-        <td>Size: {{viewUser.pubComments.length}}</td>
-      </tr>
-    </table>
-  </div>
-</div>
-
-
-<div class="row">
-  <div class="input-group">
-    <input ng-model="viewUser.pubComments.bodyPublic" id="comment" name="comment" type="text" class="form-control" placeholder="Add Comment Here"/>
-    <span class="input-group-btn">
-      <button class="btn btn-primary" ng-click="addComment(viewUser)">Add Comment</button>
-    </span>
-  </div>
-  <hr />
-</div>
-
-<div class="row">
-    <div class="col-xs-6 col-md-6 col-lg-6">
-      <div id="tableTitle">Favorites</div>
-        <table class="table table-responsive table-striped table-bordered">
-          <tr ng-repeat="book in favorites">
-            <td>
-              <img ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}" alt="Generic placeholder thumbnail" height=50>
-            </td>
-            <td>
-              {{book.volumeInfo.title}}
-            </td>
-          </tr>
-        </table>
-      </div>
-
+﻿<br />
+<div class="container container-fluid">
+<div class="thumbnail">
     
+    <div class="col-sm-12 col-md-12 col-lg-12">
 
-    <div class="col-xs-6 col-md-6 col-lg-6">
-      <div id="tableTitle">Comment Feed</div>
-        <table class="table table-responsive table-striped table-bordered">
+      <table class="table">
+        <tr><th colspan="3" id="tableTitle">View User Data</th></tr>
+        <tr>
+          <th>Username</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+        </tr>
+        <tr>
+          <td>{{viewUser.username}}</td>
+          <td>{{viewUser.pubData.firstName}}</td>
+          <td>{{viewUser.pubData.lastName}}</td>
+        </tr>
+      </table>
+    </div>
+  
+  <div class="row">
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="input-group">
+        <input ng-model="viewUser.pubComments.bodyPublic" id="comment" name="comment" type="text" class="form-control" placeholder="Add Comment Here" />
+        <span class="input-group-btn">
+          <button class="btn btn-primary" ng-click="addComment(viewUser)">Add Comment</button>
+        </span>
+      </div>
+      <hr />
+    </div>
+
+
+    <div class="col-sm-12 col-md-6 col-lg-6">
+
+      <table class="table">
+        <tr><th colspan="2" id="tableTitle">Favorites</th></tr>
+        <tr ng-repeat="book in favorites">
+          <td>
+            <img ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}" alt="Generic placeholder thumbnail" class="searchImg">
+          </td>
+          <td>
+            {{book.volumeInfo.title}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+
+    <div class="col-sm-12 col-md-6 col-lg-6">
+
+      <table class="table">
+        <tr><th colspan="3" id="tableTitle">Comment Feed</th></tr>
+        <tr>
           <th>From</th>
           <th>Sent</th>
           <th>Comment</th>
-          <tr ng-repeat="comment in pubComments">
-            <td>
-              {{comment.srcUserName}}</td>
-            <td><div id="dateDisplay">{{formatDate(comment.created)}}<br />{{formatTime(comment.created)}}</div></td>
-            <td>{{comment.bodyPublic}}</td>
-          </tr>
-        </table>
-      </div>
+        </tr>
+        <tr ng-repeat="comment in pubComments">
+          <td>
+            {{comment.srcUserName}}
+          </td>
+          <td><div id="dateDisplay">{{formatDate(comment.created)}}<br />{{formatTime(comment.created)}}</div></td>
+          <td>{{comment.bodyPublic}}</td>
+        </tr>
+      </table>
 
+    </div>
 
 
   </div>
+</div>

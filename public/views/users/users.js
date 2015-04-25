@@ -1,4 +1,6 @@
 ﻿app.controller('UsersCtrl', function ($scope, $http, $location, $rootScope) {
+  $rootScope.viewUser = $rootScope.viewUser;
+  $scope.viewUser = $rootScope.viewUser;
 
   $http.get("/rest/user")
     .success(function (users) {

@@ -83,7 +83,7 @@ app.controller('NavCtrl', function ($rootScope, $scope, $http, $location) {
     $http.post("/logout")
     .success(function () {
       $rootScope.currentUser = null;
-      $location.url("/home");
+      $location.url("/login");
     });
   }
 });
