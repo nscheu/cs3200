@@ -62,11 +62,14 @@
 
   //delete user(user)
   $scope.delUser = function (user) {
+    var index = $scope.users.indexOf(user);
     console.log("delUser - ProfileJS");
     console.log(user);
+    $scope.users.splice(index, 1);
     $http.post("/rest/delUser", user)
    .success(function (deleteduser) {
-     $scope.users.splice(deleteduser, 1);
+     console.log("deleterdUser =", user);
+     
      $location.url("/profile");
    });
   };

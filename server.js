@@ -156,6 +156,7 @@ app.post('/rest/addComment', auth, function (req, res) {
     if (err) throw err;
     // we have the updated user returned to us
     console.log(user);
+    return user;
   });
 });
 

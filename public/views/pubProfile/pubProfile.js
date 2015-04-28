@@ -16,14 +16,18 @@
     viewUser.pubComments.srcUserName = $scope.currentUser.username;
     //console.log("addComment func: pub Comment =");
     //console.log(viewUser.pubComments);
+    
     $http.post("rest/addComment", {
       params: { _id: $rootScope.viewUser._id, bodyPublic: viewUser.pubComments.bodyPublic}
     })
       .success(function (response) {
         console.log("RESPONSE IS:::::::::::::::::::::::::::::::::::");
         console.log(response);
-        $scope.pubComments = response.pubComments;
+        //$scope.viewUser.pubComments = response.pubComments;
       });
+    //console.log($scope.pubComments);
+    //$scope.pubComments = $scope.viewUser.pubComments;
+    //console.log($scope.pubComments);
   };
 
   $scope.formatDate = function (dateCreated) {
