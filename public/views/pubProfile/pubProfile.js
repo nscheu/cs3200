@@ -14,13 +14,15 @@
 
   $scope.addComment = function (viewUser) {
     viewUser.pubComments.srcUserName = $scope.currentUser.username;
-    console.log("addComment func: pub Comment =");
-    console.log(viewUser.pubComments);
+    //console.log("addComment func: pub Comment =");
+    //console.log(viewUser.pubComments);
     $http.post("rest/addComment", {
       params: { _id: $rootScope.viewUser._id, bodyPublic: viewUser.pubComments.bodyPublic}
     })
       .success(function (response) {
+        console.log("RESPONSE IS:::::::::::::::::::::::::::::::::::");
         console.log(response);
+        $scope.pubComments = response.pubComments;
       });
   };
 

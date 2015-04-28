@@ -103,6 +103,18 @@ app.post("/api/updateUser", auth, function (req, res) {
   });
 });
 
+//right now only replaces bookshelf in Mongo - will need to edit for entire schema/etc
+app.post("/api/updateUserFavorites", auth, function (req, res) {
+  console.log("server - updateUser REST");
+  console.log(req.body);
+  UserModel.findOneAndUpdate({ _id: req.body._id }, { bookshelf: req.body.bookshelf }, function (err, user) {
+    if (err) throw err;
+    // we have the updated user returned to us
+    console.log(user);
+    //res.json(user);
+  });
+});
+
 app.get('/rest/pubFavorites', function (req, res) {
   console.log(req.query._id)
   UserModel.findOne({ _id: req.query._id }, function (err, user) {

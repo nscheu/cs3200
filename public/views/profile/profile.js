@@ -15,8 +15,29 @@
 
   //removeFavorite(book)
   $scope.removeFavorite = function (book) {
+    console.log(book.id);
+    console.log($scope.currentUser.bookshelf[0].id);
     var index = $scope.favorites.indexOf(book);
+    var dbIndex = -1;
+
+    for (i in $scope.currentUser.bookshelf) {
+      if ($scope.currentUser.bookshelf[i].id == book.id) {
+        console.log("MATCH FOUND", book.id, i);
+        dbIndex = i;
+      }
+    }
+
+    
+    console.log("REMOVE FAVORITE", dbIndex);
+    //console.log($scope.currentUser.bookshelf);
+    console.log($scope.currentUser.bookshelf.splice(dbIndex, 1));
+
+    //console.log($scope.currentUser.bookshelf);
     $scope.favorites.splice(index, 1);
+    $http.post("/api/updateUserFavorites", $scope.currentUser)
+      .success(function (resource) {
+        $scope.favorites = resource;
+      });
   };
 
   $scope.openUpdateUserModal = function (user) {
@@ -44,8 +65,8 @@
     console.log("delUser - ProfileJS");
     console.log(user);
     $http.post("/rest/delUser", user)
-   .success(function (users) {
-     $scope.users = users;
+   .success(function (deleteduser) {
+     $scope.users.splice(deleteduser, 1);
      $location.url("/profile");
    });
   };
