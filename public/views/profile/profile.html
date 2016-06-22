@@ -3,114 +3,41 @@
 
 <div class="container container-fluid">
 
-  <div class="thumbnail">
-    <h1>My Profile</h1>
 
-    <div ng-show="{{currentuser.roles.indexOf('student')}} '> -1'">
-      <!--<h2>Student</h2>-->
-    </div>
+
+    
 
 
     <div class="col-sm-12 col-md-12 col-lg-12">
 
       <table class="table">
         <thead>
-          <tr><th colspan="5" id="tableTitle">User Data</th></tr>
+          <tr><th colspan="5" id="tableTitle"><h3>User Data Profile</h3></th></tr>
           <tr>
             <th>Username</th>
-            <th>User Role</th>
             <th>First Name</th>
             <th>Last Name</th>
+			<th>Email</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>{{currentUser.username}}</td>
-            <td>{{currentUser.roles}}</td>
-            <td>{{currentUser.pubData.firstName}}</td>
-            <td>{{currentUser.pubData.lastName}}</td>
-            <td><button class="btn btn-warning pull-right" ng-click="openUpdateUserModal(currentUser)">Update</button></td>
+            <td>{{currentUser.user_first_name}}</td>
+            <td>{{currentUser.user_last_name}}</td>
+			<td>{{currentUser.email}}</td>
+            <td><button class="btn btn-warning pull-right" ng-click="openUpdateUserModal(currentUser)">Update</button>
+				<button class="btn btn-danger pull-right" ng-click="deleteUser(currentUser)">Delete</button>
+			</td>
+			
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="row">
-
-
-      <div class="col-sm-12 col-md-6 col-lg-6">
-
-        <table class="table">
-          <thead>
-            <tr><th colspan="3" id="tableTitle">Comment Feed</th></tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="comment in pubComments">
-              <td>From:<br />{{comment.srcUserName}}</td>
-              <td>Comment:<br />{{comment.bodyPublic}}</td>
-              <td>Sent:<br />{{comment.created}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="col-sm-12 col-md-6 col-lg-6">
-
-        <table class="table">
-          <thead>
-            <tr><th colspan="3" id="tableTitle">Favorites</th></tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="book in favorites">
-              <td><img ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}" alt="Generic placeholder thumbnail" class="searchImg"></td>
-              <td>{{book.volumeInfo.title}}</td>
-              <td>
-                <button ng-click="removeFavorite(book)" class="btn btn-danger pull-right">
-                  <span class="glyphicon glyphicon-remove"></span> Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-
-
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div ng-show="{{currentuser.roles.indexof('admin')}} '> -1'">
-          <table class="table">
-            <thead>
-              <tr><th colspan="7" id="tableTitle">Admin</th></tr>
-              <tr>
-                <th>Username</th>
-                <th>Role</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th colspan="2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="user in users" ng-if="user.username != currentUser.username">
-                <td>{{user.username}}</td>
-                <td>{{user.roles}}</td>
-                <td>{{user.pubData.firstName}}</td>
-                <td>{{user.pubData.lastName}}</td>
-
-                <td>
-                  <button class="btn btn-danger pull-right" ng-click="delUser(user)">Delete</button>
-                </td>
-                <td>
-                  <button class="btn btn-warning pull-right" ng-click="openUpdateUserModal(user)">Update</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-  </div>
+    
+  
 </div>
 
 
@@ -133,14 +60,14 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label" for="name">First Name</label>
                 <div class="col-sm-8">
-                  <input ng-model="updateUser.pubData.firstName" id="name" name="name" type="text" class="form-control" placeholder="{{updateUser.pubData.firstName}}" />
+                  <input ng-model="updateUser.user_first_name" id="name" name="name" type="text" class="form-control" placeholder="{{updateUser.user_first_name}}" />
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-3 control-label" for="name">Last Name</label>
                 <div class="col-sm-8">
-                  <input ng-model="updateUser.pubData.lastName" id="name" name="name" type="text" class="form-control" placeholder="{{updateUser.pubData.lastName}}" />
+                  <input ng-model="updateUser.user_last_name" id="name" name="name" type="text" class="form-control" placeholder="{{updateUser.user_last_name}}" />
                 </div>
               </div>
             </form>
