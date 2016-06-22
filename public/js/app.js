@@ -2,6 +2,18 @@
 
 app.config(function($routeProvider, $httpProvider) {
   $routeProvider
+  .when('/create', {
+      templateUrl: '/views/create/create.html',
+      controller: 'CreateCtrl'
+    })
+  .when('/profile', {
+    templateUrl: '/views/profile/profile.html',
+    controller: 'ProfileCtrl',
+      resolve: {
+        loggedin: checkLoggedIn
+      }
+    })
+  
    .when('/', {
      templateUrl: '/views/home.html',
      controller: 'MyItemsApiController'
