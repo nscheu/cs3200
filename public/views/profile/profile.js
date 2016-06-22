@@ -1,4 +1,4 @@
-﻿app.controller('ProfileCtrl', function ($scope, $http, $location) {
+﻿app.controller('ProfileCtrl', function ($scope, $http, $location, $rootScope) {
 
 
   
@@ -23,20 +23,23 @@
        });
   };
 
-  //delete user(user)
+
+ //delete user(user)
   $scope.delUser = function (user) {
-    var index = $scope.users.indexOf(user);
+    //var index = $scope.users.indexOf(user);
     console.log("delUser - ProfileJS");
     console.log(user);
-    $scope.users.splice(index, 1);
+    //$scope.users.splice(index, 1);
     $http.post("/rest/delUser", user)
-   .success(function (deleteduser) {
-     console.log("deleterdUser =", user);
-     
-     $location.url("/profile");
-   });
+      .success(function (deleteduser) {
+        console.log("deletedUser =", user);
+        $http.post('/logout')
+          .success(function(){
+          $rootScope.currentUser = null;
+          $location.url("/logout");
+          //callback();
+        })
+      });
   };
-
- 
 
 });
