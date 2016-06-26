@@ -9,9 +9,10 @@
           $rootScope.currentUser = user;
           console.log(user);
           $location.url("/profile");
-		});
-	}else{
-		console.log("password fail");
-		window.alert("Passwords do not match!");
-    }
-}});
+		    });
+      }else{
+		    console.log("password fail");
+		    window.alert("Passwords do not match!");
+      }
+  }
+});

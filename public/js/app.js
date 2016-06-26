@@ -29,13 +29,7 @@ app.config(function($routeProvider, $httpProvider) {
         loggedin: checkLoggedIn
       }
     })
-    .when('/pubProfile', {
-      templateUrl: '/views/pubProfile/pubProfile.html',
-      controller: 'pubProfileCtrl',
-      resolve: {
-        loggedin: checkLoggedIn
-      }
-    })
+    
     .when('/register', {
       templateUrl: '/views/register/register.html',
       controller: 'RegisterCtrl'

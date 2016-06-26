@@ -4,7 +4,7 @@
     //console.log(user);
     //include password validation HERE (password and password2)
     if (user.password == user.password2) {
-      $http.post('/register', user)
+      $http.post('/create', user)
         .success(function (user) {
           $rootScope.currentUser = user;
           //console.log(user);
